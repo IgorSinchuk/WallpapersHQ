@@ -3,12 +3,15 @@ package com.example.igor.wallpapershq.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.igor.wallpapershq.Common.Common;
+import com.example.igor.wallpapershq.Interface.ItemClickListener;
 import com.example.igor.wallpapershq.Model.CategoryItem;
 import com.example.igor.wallpapershq.R;
 import com.example.igor.wallpapershq.ViewHolder.CategoryViewHolder;
@@ -16,6 +19,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 public class CategoryFragment extends Fragment {
 
@@ -40,8 +46,42 @@ public class CategoryFragment extends Fragment {
 
         adapter = new FirebaseRecyclerAdapter<CategoryItem, CategoryViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull CategoryViewHolder holder, int position, @NonNull CategoryItem model) {
+            protected void onBindViewHolder(@NonNull final CategoryViewHolder holder, int position, @NonNull final CategoryItem model) {
+                Picasso.with(getActivity())
+                        .load(model.getImageLink())
+                        .networkPolicy(NetworkPolicy.OFFLINE)
+                        .into(holder.coverImage, new Callback() {
+                            @Override
+                            public void onSuccess() {
 
+                            }
+
+                            @Override
+                            public void onError() {
+                                Picasso.with(getActivity())
+                                        .load(model.getImageLink())
+                                        .error(R.drawable.ic_terrain_black_24dp)
+                                        .into(holder.coverImage, new Callback() {
+                                            @Override
+                                            public void onSuccess() {
+
+                                            }
+
+                                            @Override
+                                            public void onError() {
+                                                Log.e("ERROR APP", "Could not fetch image");
+                                            }
+                                        });
+                            }
+                        });
+                holder.categoryName.setText(model.getName());
+
+                holder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onclick(View view, int position) {
+
+                    }
+                });
             }
 
             @NonNull
@@ -67,14 +107,49 @@ public class CategoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false);
+        View view = inflater.inflate(R.layout.fragment_category, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_category);
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        setCategory();
+
+        return view;
     }
 
+    private void setCategory() {
+        adapter.startListening();
+        recyclerView.setAdapter(adapter);
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (adapter != null)
+            adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        if (adapter != null)
+            adapter.stopListening();
+        super.onStop();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adapter != null)
+            adapter.startListening();
+    }
 }

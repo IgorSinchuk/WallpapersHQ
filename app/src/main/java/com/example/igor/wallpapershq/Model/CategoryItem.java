@@ -2,22 +2,30 @@ package com.example.igor.wallpapershq.Model;
 
 public class CategoryItem {
 
-    public String name;
-    public String imagecoverlink;
+    private String name;
+    private String imageLink;
 
     public CategoryItem() {
     }
 
-    public CategoryItem(String name, String imagecoverlink) {
+    public CategoryItem(String name, String imageLink) {
         this.name = name;
-        this.imagecoverlink = imagecoverlink;
+        this.imageLink = imageLink;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getImagecoverlink() {
-        return imagecoverlink;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 }
