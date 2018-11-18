@@ -1,5 +1,6 @@
 package com.example.igor.wallpapershq.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.igor.wallpapershq.Common.Common;
 import com.example.igor.wallpapershq.Interface.ItemClickListener;
+import com.example.igor.wallpapershq.ListWallpaper;
 import com.example.igor.wallpapershq.Model.CategoryItem;
 import com.example.igor.wallpapershq.R;
 import com.example.igor.wallpapershq.ViewHolder.CategoryViewHolder;
@@ -79,7 +81,9 @@ public class CategoryFragment extends Fragment {
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onclick(View view, int position) {
-
+                        Common.CATEGORY_ID_SELECTED = adapter.getRef(position).getKey();
+                        Common.CATEGORY_SELECTED = model.getName();
+                        startActivity(new Intent(getActivity(), ListWallpaper.class));
                     }
                 });
             }
