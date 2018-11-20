@@ -43,6 +43,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
             case 0:
                 return "Category";
 
+
             case 1:
                 return "Daily Popular";
 

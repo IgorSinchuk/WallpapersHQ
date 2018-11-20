@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListWallpaper">
+    tools:context=".ListWallpaper"
+    android:background="#000">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -17,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="#252525"
             app:titleTextColor="#fff">
 
         </android.support.v7.widget.Toolbar>

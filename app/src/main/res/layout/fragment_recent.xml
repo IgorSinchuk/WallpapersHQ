@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.RecentFragment">
+    tools:context=".Fragment.RecentFragment"
+    android:background="#000">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -11,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Recent fragment"
         android:textSize="30sp"
+        android:textColor="#fff"
         android:layout_centerInParent="true"/>
 
 </RelativeLayout>

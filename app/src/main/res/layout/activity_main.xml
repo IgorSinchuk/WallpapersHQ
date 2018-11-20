@@ -12,6 +12,7 @@
         android:background="#000">
 
         <android.support.design.widget.TabLayout
+            app:tabTextColor="#fff"
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +32,7 @@
             android:layout_alignParentBottom="true"
             android:background="#252525"
             app:itemIconTint="@android:color/background_dark"
-            app:itemTextColor="#9E9EA0"
+            app:itemTextColor="#fff"
             app:menu="@menu/bottom_navigation_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></android.support.design.widget.BottomNavigationView>
