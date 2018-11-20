@@ -17,4 +17,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="CollapsedAppBar" parent="TextAppearance.AppCompat.Medium">
+
+    </style>
+
+    <!--<style name="ExpandedAppBar" parent="TextAppearance.Material.Title">-->
+
+    <!--</style>-->
+
 </resources>
