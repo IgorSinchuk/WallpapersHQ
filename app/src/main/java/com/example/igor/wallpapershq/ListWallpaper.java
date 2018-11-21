@@ -1,6 +1,7 @@
 package com.example.igor.wallpapershq;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.igor.wallpapershq.Common.Common;
+import com.example.igor.wallpapershq.Interface.ItemClickListener;
 import com.example.igor.wallpapershq.Model.WallpaperItem;
 import com.example.igor.wallpapershq.ViewHolder.ListWallpaperViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -89,6 +91,15 @@ public class ListWallpaper extends AppCompatActivity {
                                         });
                             }
                         });
+
+                holder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onclick(View view, int position) {
+                        Intent intent = new Intent(ListWallpaper.this, ViewWallpaper.class);
+                        Common.select_image = model;
+                        startActivity(intent);
+                    }
+                });
             }
 
             @NonNull
