@@ -15,10 +15,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.igor.wallpapershq.Common.Common;
+import com.example.igor.wallpapershq.Database.RecentRepository;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.IOException;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class ViewWallpaper extends AppCompatActivity {
 
@@ -26,6 +29,10 @@ public class ViewWallpaper extends AppCompatActivity {
     CoordinatorLayout rootLayout;
     Button setWalBtn;
     ImageView imageView;
+
+    //room
+    CompositeDisposable compositeDisposable;
+    RecentRepository recentRepository;
 
     private Target target = new Target() {
         @Override
@@ -59,6 +66,8 @@ public class ViewWallpaper extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() !=null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
 
         rootLayout = (CoordinatorLayout) findViewById(R.id.rootLayout);
