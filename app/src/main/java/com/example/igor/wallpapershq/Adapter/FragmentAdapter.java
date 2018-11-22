@@ -26,7 +26,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         else if (position == 1)
             return DailyPopularFragment.getInstance();
         else if (position == 2)
-            return RecentFragment.getInstance();
+            return RecentFragment.getInstance(context);
         else
             return null;
     }

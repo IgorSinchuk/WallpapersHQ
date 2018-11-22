@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 public class Recent {
 
     @ColumnInfo(name = "imageLink")
+    @NonNull
     private String imageLink;
 
     @ColumnInfo(name = "categoryId")
@@ -23,12 +24,12 @@ public class Recent {
         this.categoryId = categoryId;
         this.saveTime = saveTime;
     }
-
+    @NonNull
     public String getImageLink() {
         return imageLink;
     }
 
-    public void setImageLink(String imageLink) {
+    public void setImageLink(@NonNull String imageLink) {
         this.imageLink = imageLink;
     }
 
@@ -37,10 +38,9 @@ public class Recent {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(@NonNull String categoryId) {
         this.categoryId = categoryId;
     }
-
     public String getSaveTime() {
         return saveTime;
     }
