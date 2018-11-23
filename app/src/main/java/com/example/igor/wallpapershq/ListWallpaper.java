@@ -98,6 +98,7 @@ public class ListWallpaper extends AppCompatActivity {
                     public void onclick(View view, int position) {
                         Intent intent = new Intent(ListWallpaper.this, ViewWallpaper.class);
                         Common.select_image = model;
+                        Common.select_image_key = adapter.getRef(position).getKey();
                         startActivity(intent);
                     }
                 });

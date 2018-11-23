@@ -45,7 +45,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
 
             case 1:
-                return "Daily Popular";
+                return "Popular";
 
             case 2:
                 return "Recent";

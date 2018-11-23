@@ -3,6 +3,7 @@ package com.example.igor.wallpapershq;
 import android.app.WallpaperManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -14,16 +15,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.igor.wallpapershq.Common.Common;
 import com.example.igor.wallpapershq.Database.LocalDatabase;
 import com.example.igor.wallpapershq.Database.Recent;
 import com.example.igor.wallpapershq.Database.RecentDataSource;
 import com.example.igor.wallpapershq.Database.RecentRepository;
+import com.example.igor.wallpapershq.Model.WallpaperItem;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -76,7 +87,7 @@ public class ViewWallpaper extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() !=null)
+        if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         compositeDisposable = new CompositeDisposable();
@@ -109,6 +120,48 @@ public class ViewWallpaper extends AppCompatActivity {
                         .into(target);
             }
         });
+
+        increaseViewCount();
+
+    }
+
+    private void increaseViewCount() {
+        FirebaseDatabase.getInstance()
+                .getReference(Common.STR_WALLPAPER)
+                .child(Common.select_image_key)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild("viewCount")) {
+                            WallpaperItem wallpaperItem = dataSnapshot.getValue(WallpaperItem.class);
+                            long count = wallpaperItem.getViewCount()+1;
+                            Map<String, Object> update_view = new HashMap<>();
+                            update_view.put("viewCount", Long.valueOf(1));
+
+                            FirebaseDatabase.getInstance()
+                                    .getReference(Common.STR_WALLPAPER)
+                                    .child(Common.select_image_key)
+                                    .updateChildren(update_view)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(ViewWallpaper.this, "Can not set default view count", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     private void addToRecent() {
@@ -117,7 +170,8 @@ public class ViewWallpaper extends AppCompatActivity {
             public void subscribe(ObservableEmitter<Object> e) throws Exception {
                 Recent recent = new Recent(Common.select_image.getImageLink(),
                         Common.select_image.getCategoryId(),
-                        String.valueOf(System.currentTimeMillis()));
+                        String.valueOf(System.currentTimeMillis()),
+                        Common.select_image_key);
                         recentRepository.insertRecent(recent);
                         e.onComplete();
             }
