@@ -27,15 +27,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation"
-            android:layout_alignParentBottom="true"
-            android:background="#252525"
-            app:itemIconTint="@android:color/background_dark"
-            app:itemTextColor="#fff"
-            app:menu="@menu/bottom_navigation_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.design.widget.BottomNavigationView>
+        <!--<android.support.design.widget.BottomNavigationView-->
+            <!--android:id="@+id/navigation"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:background="#252525"-->
+            <!--app:itemIconTint="@android:color/background_dark"-->
+            <!--app:itemTextColor="#fff"-->
+            <!--app:menu="@menu/bottom_navigation_menu"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"></android.support.design.widget.BottomNavigationView>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/googleIn"-->
+                <!--android:text="Google account"-->
+                <!--android:background="#fff"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"></Button>-->
+
+        <!--</LinearLayout>-->
 
     </RelativeLayout>
 

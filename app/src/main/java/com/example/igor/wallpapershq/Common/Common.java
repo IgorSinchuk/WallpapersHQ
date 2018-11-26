@@ -13,4 +13,7 @@ public class Common {
     public static WallpaperItem select_image = new WallpaperItem();
 
     public static String select_image_key;
+
+    //sign in
+    public static final int SIGN_IN_REQUEST_CODE = 1001;
 }
