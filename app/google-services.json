@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:661262335868:android:ca760b8e024f4099",
+        "mobilesdk_app_id": "1:661262335868:android:c6bee0802b7bac68",
         "android_client_info": {
-          "package_name": "com.example.igor.wallpapershq"
+          "package_name": "com.nonexistentware.igor.wallpapershq"
         }
       },
       "oauth_client": [
         {
-          "client_id": "661262335868-asv74cdajkj7la0u8cqjaemdd3aoe5d5.apps.googleusercontent.com",
+          "client_id": "661262335868-4qjfc8477lf9to3h15nhhun8ta5fmc9j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.igor.wallpapershq",
+            "package_name": "com.nonexistentware.igor.wallpapershq",
             "certificate_hash": "fca31f0707f8b1b058129f9e9dbacadfc08382d6"
           }
         },
