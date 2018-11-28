@@ -22,7 +22,7 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleTextAppearance="@android:color/transparent"
             android:layout_width="match_parent"
-            android:layout_height="550dp">
+            android:layout_height="530dp">
 
             <ImageView
                 android:background="#000"
@@ -58,15 +58,15 @@
             android:layout_marginBottom="16dp"
             app:cardElevation="10dp"
             app:cardUseCompatPadding="true"
-            android:background="#fff">
+            android:background="#252525">
 
 
             <LinearLayout
-                android:weightSum="2"
-                android:orientation="horizontal"
+
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff">
+                android:background="#252525">
 
                 <!--<TextView-->
                     <!--android:padding="12dp"-->
@@ -79,6 +79,14 @@
                 <Button
                     android:id="@+id/setWalBtn"
                     android:text="Set as wallpaper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:layout_marginBottom="5dp"/>
+
+                <Button
+                    android:id="@+id/downloadBtn"
+                    android:text="Download image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#fff"/>

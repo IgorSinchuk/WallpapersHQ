@@ -1,12 +1,18 @@
 package com.nonexistentware.igor.wallpapershq;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.WallpaperManager;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +28,7 @@ import com.nonexistentware.igor.wallpapershq.Database.LocalDatabase;
 import com.nonexistentware.igor.wallpapershq.Database.Recent;
 import com.nonexistentware.igor.wallpapershq.Database.RecentDataSource;
 import com.nonexistentware.igor.wallpapershq.Database.RecentRepository;
+import com.nonexistentware.igor.wallpapershq.Helper.SaveImage;
 import com.nonexistentware.igor.wallpapershq.Model.WallpaperItem;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,7 +42,9 @@ import com.squareup.picasso.Target;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
+import dmax.dialog.SpotsDialog;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -50,12 +59,38 @@ public class ViewWallpaper extends AppCompatActivity {
 
     CollapsingToolbarLayout collapsingToolbarLayout;
     CoordinatorLayout rootLayout;
-    Button setWalBtn;
+    Button setWalBtn, downloadBtn;
     ImageView imageView;
 
     //room
     CompositeDisposable compositeDisposable;
     RecentRepository recentRepository;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case Common.PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0 && grantResults [0] == PackageManager.PERMISSION_GRANTED) {
+                    AlertDialog dialog = new SpotsDialog.Builder().setContext(ViewWallpaper.this).build();
+                    dialog.show();
+                    dialog.setMessage("In progress...");
+
+                    String fileName = UUID.randomUUID().toString()+".jpeg";
+                    Picasso.with(getBaseContext())
+                            .load(Common.select_image.getImageLink())
+                            .into(new SaveImage(getBaseContext(),
+                                    dialog,
+                                    getApplicationContext().getContentResolver(),
+                                    fileName,
+                                    "Wallpapers HQ"));
+                } else
+                    Toast.makeText(this, "To download image you need to accept permission", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
 
     private Target target = new Target() {
         @Override
@@ -90,6 +125,7 @@ public class ViewWallpaper extends AppCompatActivity {
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         compositeDisposable = new CompositeDisposable();
         LocalDatabase database = LocalDatabase.getInstance(this);
         recentRepository = RecentRepository.getInstance(RecentDataSource.getInstance(database.recentDao()));
@@ -112,6 +148,34 @@ public class ViewWallpaper extends AppCompatActivity {
 
 
         setWalBtn = (Button) findViewById(R.id.setWalBtn);
+        downloadBtn = (Button) findViewById(R.id.downloadBtn);
+
+        downloadBtn.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View v) {
+                if (ActivityCompat.checkSelfPermission(ViewWallpaper.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, Common.PERMISSION_REQUEST_CODE);
+                } else {
+                    AlertDialog dialog = new SpotsDialog.Builder().setContext(ViewWallpaper.this).build();
+                    dialog.show();
+                    dialog.setMessage("In progress...");
+
+                    String fileName = UUID.randomUUID().toString()+".jpeg";
+                    Picasso.with(getBaseContext())
+                            .load(Common.select_image.getImageLink())
+                            .into(new SaveImage(getBaseContext(),
+                                    dialog,
+                                    getApplicationContext().getContentResolver(),
+                                    fileName,
+                                    "Wallpapers HQ"));
+                }
+            }
+        });
+
         setWalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
