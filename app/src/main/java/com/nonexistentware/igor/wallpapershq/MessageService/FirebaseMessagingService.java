@@ -1,4 +1,4 @@
-package com.nonexistentware.igor.wallpapershq;
+package com.nonexistentware.igor.wallpapershq.MessageService;
 
 
 
@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.RemoteMessage;
+import com.nonexistentware.igor.wallpapershq.R;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
@@ -44,7 +45,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         notificationBuilder.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.ic_adb)
+                .setSmallIcon(R.drawable.icon)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setContentInfo("Info");

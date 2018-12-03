@@ -1,4 +1,4 @@
-package com.nonexistentware.igor.wallpapershq;
+package com.nonexistentware.igor.wallpapershq.MessageService;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
