@@ -6,8 +6,10 @@ import android.app.AlertDialog;
 import android.app.WallpaperManager;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -21,8 +23,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bluehomestudio.progresswindow.ProgressWindow;
+import com.bluehomestudio.progresswindow.ProgressWindowConfiguration;
+import com.google.android.gms.common.api.Api;
 import com.nonexistentware.igor.wallpapershq.Common.Common;
 import com.nonexistentware.igor.wallpapershq.Database.LocalDatabase;
 import com.nonexistentware.igor.wallpapershq.Database.Recent;
@@ -45,6 +51,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import dmax.dialog.SpotsDialog;
+import io.netopen.hotbitmapgg.library.view.RingProgressBar;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -62,6 +69,8 @@ public class ViewWallpaper extends AppCompatActivity {
     Button setWalBtn, downloadBtn;
     ImageView imageView;
 
+
+
     //room
     CompositeDisposable compositeDisposable;
     RecentRepository recentRepository;
@@ -72,6 +81,7 @@ public class ViewWallpaper extends AppCompatActivity {
             case Common.PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0 && grantResults [0] == PackageManager.PERMISSION_GRANTED) {
                     AlertDialog dialog = new SpotsDialog.Builder().setContext(ViewWallpaper.this).build();
+
                     dialog.show();
                     dialog.setMessage("In progress...");
 
@@ -119,6 +129,7 @@ public class ViewWallpaper extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_wallpaper);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -179,9 +190,11 @@ public class ViewWallpaper extends AppCompatActivity {
         setWalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Picasso.with(getBaseContext())
                         .load(Common.select_image.getImageLink())
                         .into(target);
+
             }
         });
 
@@ -267,6 +280,11 @@ public class ViewWallpaper extends AppCompatActivity {
         Picasso.with(this).cancelRequest(target);
         compositeDisposable.clear();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override

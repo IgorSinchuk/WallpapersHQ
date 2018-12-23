@@ -23,7 +23,6 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_below="@+id/tabLayout"
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
@@ -50,6 +49,8 @@
                 <!--android:layout_height="wrap_content"></Button>-->
 
         <!--</LinearLayout>-->
+
+
 
     </RelativeLayout>
 

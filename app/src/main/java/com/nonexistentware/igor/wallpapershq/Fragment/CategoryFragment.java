@@ -77,12 +77,14 @@ public class CategoryFragment extends Fragment {
                             }
                         });
                 holder.categoryName.setText(model.getName());
+                holder.description.setText(model.getDescription());
 
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onclick(View view, int position) {
                         Common.CATEGORY_ID_SELECTED = adapter.getRef(position).getKey();
                         Common.CATEGORY_SELECTED = model.getName();
+                        Common.CATEGORY_SELECTED = model.getDescription();
                         startActivity(new Intent(getActivity(), ListWallpaper.class));
                     }
                 });
@@ -122,7 +124,7 @@ public class CategoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_category);
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);//row count
         recyclerView.setLayoutManager(gridLayoutManager);
 
         setCategory();

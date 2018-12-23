@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bluehomestudio.progresswindow.ProgressWindow;
 import com.nonexistentware.igor.wallpapershq.Common.Common;
 import com.nonexistentware.igor.wallpapershq.Database.Recent;
 import com.nonexistentware.igor.wallpapershq.Interface.ItemClickListener;
@@ -26,6 +27,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<ListWallpaperViewHol
 
     private Context context;
     private List<Recent> recents;
+    private ProgressWindow progressWindow;
 
     public MyRecyclerAdapter(Context context, List<Recent> recents) {
         this.context = context;
@@ -86,8 +88,12 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<ListWallpaperViewHol
         });
     }
 
+
+
     @Override
     public int getItemCount() {
         return recents.size();
     }
+
+
 }

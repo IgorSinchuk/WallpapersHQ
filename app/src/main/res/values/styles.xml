@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/com_facebook_button_background_color_focused</item>
+        <item name="android:textColorPrimaryInverse">@color/com_facebook_button_background_color_focused</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
@@ -20,9 +21,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.nonexistentware.igor.wallpapershq.Adapter.FragmentAdapter;
@@ -30,6 +36,8 @@ import com.nonexistentware.igor.wallpapershq.Common.Common;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import io.netopen.hotbitmapgg.library.view.RingProgressBar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -99,14 +107,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public AlertDialog.Builder buildDialog(Context context) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("No internet connection");
-        builder.setMessage("You need to turn on wifi or mobile data.");
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(MainActivity.this, R.style.CustomAlertDialog));
+        String title = "No internet connection!";
+        String message = "You need to turn on wifi or mobile data.";
+
+        //chane color of alert text
+        ForegroundColorSpan titleColor = new ForegroundColorSpan(Color.RED);
+        ForegroundColorSpan messageColor = new ForegroundColorSpan(Color.WHITE);
+
+        SpannableStringBuilder msBuilder = new SpannableStringBuilder(message);
+        SpannableStringBuilder ssBuilder = new SpannableStringBuilder(title);
+        ssBuilder.setSpan(
+                titleColor,
+                0,
+                title.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+        msBuilder.setSpan(
+                messageColor,
+                0,
+                message.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+        builder.setTitle(ssBuilder);
+        builder.setMessage(msBuilder);
 
         builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+
             }
         });
 
@@ -115,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
-                
+
             }
         });
 

@@ -9,9 +9,11 @@ import android.widget.TextView;
 import com.nonexistentware.igor.wallpapershq.Interface.ItemClickListener;
 import com.nonexistentware.igor.wallpapershq.R;
 
+import org.w3c.dom.Text;
+
 public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView categoryName;
+    public TextView categoryName, description;
     public ImageView coverImage;
 
     ItemClickListener itemClickListener;
@@ -23,6 +25,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     public CategoryViewHolder(@NonNull View itemView) {
         super(itemView);
         categoryName = (TextView) itemView.findViewById(R.id.name);
+        description = (TextView) itemView.findViewById(R.id.description);
         coverImage = (ImageView) itemView.findViewById(R.id.image);
 
         itemView.setOnClickListener(this);
