@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bluehomestudio.progresswindow.ProgressWindow;
@@ -66,8 +67,9 @@ public class ViewWallpaper extends AppCompatActivity {
 
     CollapsingToolbarLayout collapsingToolbarLayout;
     CoordinatorLayout rootLayout;
-    Button setWalBtn, downloadBtn;
+//    Button setWalBtn, downloadBtn;
     ImageView imageView;
+    TextView setWall, downloadWall;
 
 
 
@@ -158,10 +160,10 @@ public class ViewWallpaper extends AppCompatActivity {
         addToRecent();
 
 
-        setWalBtn = (Button) findViewById(R.id.setWalBtn);
-        downloadBtn = (Button) findViewById(R.id.downloadBtn);
+        setWall = (TextView) findViewById(R.id.setWall);
+        downloadWall = (TextView) findViewById(R.id.downloadWall);
 
-        downloadBtn.setOnClickListener(new View.OnClickListener() {
+        downloadWall.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
@@ -187,7 +189,7 @@ public class ViewWallpaper extends AppCompatActivity {
             }
         });
 
-        setWalBtn.setOnClickListener(new View.OnClickListener() {
+        setWall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

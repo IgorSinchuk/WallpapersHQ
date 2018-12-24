@@ -48,7 +48,7 @@ public class ListWallpaper extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_list_wallpaper);
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);//row of images
         recyclerView.setLayoutManager(gridLayoutManager);
 
         loadBackgroundList();

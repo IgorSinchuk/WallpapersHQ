@@ -18,11 +18,11 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleTextAppearance="@android:color/transparent"
             android:layout_width="match_parent"
-            android:layout_height="500dp">
+            android:layout_height="600dp">
 
             <ImageView
                 android:background="#000"
@@ -86,10 +86,31 @@
             android:background="#000">
 
             <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#000">
+                android:background="#000"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/setWall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Set"
+                    android:textColor="#fff"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/downloadWall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Download"
+                    android:textColor="#fff"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:textSize="20sp"/>
 
             <!--<TextView-->
             <!--android:padding="12dp"-->
@@ -99,22 +120,22 @@
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content" />-->
 
-            <Button
-                android:id="@+id/setWalBtn"
-                android:text="Set as wallpaper"
-                android:textColor="#fff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/borderless_button"
-                android:layout_marginBottom="5dp"/>
+            <!--<Button-->
+                <!--android:id="@+id/setWalBtn"-->
+                <!--android:text="Set as wallpaper"-->
+                <!--android:textColor="#fff"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/shape_square_2"-->
+                <!--android:layout_marginBottom="5dp"/>-->
 
-            <Button
-                android:id="@+id/downloadBtn"
-                android:text="Download image"
-                android:textColor="#fff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/borderless_button"/>
+            <!--<Button-->
+                <!--android:id="@+id/downloadBtn"-->
+                <!--android:text="Download image"-->
+                <!--android:textColor="#fff"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/shape_square_2"/>-->
 
 
 </LinearLayout>

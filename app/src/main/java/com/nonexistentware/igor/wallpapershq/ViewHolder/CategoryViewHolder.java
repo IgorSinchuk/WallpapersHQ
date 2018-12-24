@@ -28,6 +28,8 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         description = (TextView) itemView.findViewById(R.id.description);
         coverImage = (ImageView) itemView.findViewById(R.id.image);
 
+        description.setVisibility(View.INVISIBLE);
+
         itemView.setOnClickListener(this);
     }
 
