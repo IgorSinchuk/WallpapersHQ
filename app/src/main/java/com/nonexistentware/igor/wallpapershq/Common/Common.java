@@ -5,6 +5,7 @@ import com.nonexistentware.igor.wallpapershq.Model.WallpaperItem;
 public class Common {
     public static final String STR_CATEGORY_BACKGROUND = "CategoryBackground";
     public static final String STR_WALLPAPER = "Images";
+    public static final String STR_APP_NEWS = "News";
     public static String CATEGORY_SELECTED;
     public static String CATEGORY_ID_SELECTED;
 

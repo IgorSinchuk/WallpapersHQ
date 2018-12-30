@@ -4,10 +4,10 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.nonexistentware.igor.wallpapershq"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
-        versionCode 9
-        versionName "1.7"
+        versionCode 10
+        versionName "1.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -36,6 +36,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.firebaseui:firebase-ui-database:3.1.2'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
@@ -61,6 +64,9 @@ dependencies {
     //progress bar
     implementation 'com.github.HotBitmapGG:RingProgressBar:V1.2.3'
     implementation 'com.github.mmoamenn:ProgressWindow_Android:0.0.2'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
 
 
 

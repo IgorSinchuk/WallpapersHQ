@@ -16,7 +16,9 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#252525">
+            android:background="#000"
+            android:layout_alignParentBottom="false">
+            <!--android:background="#252525">-->
 
         </android.support.design.widget.TabLayout>
 
@@ -36,19 +38,31 @@
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"></android.support.design.widget.BottomNavigationView>-->
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentBottom="true">-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#000"
+            android:orientation="vertical">
 
-            <!--<Button-->
-                <!--android:id="@+id/googleIn"-->
-                <!--android:text="Google account"-->
-                <!--android:background="#fff"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"></Button>-->
+            <View
+                android:layout_width="200dp"
+                android:layout_height="3dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="#fff" />
 
-        <!--</LinearLayout>-->
+            <TextView
+                android:id="@+id/googleBtn"
+                android:text="Google"
+                android:textSize="20sp"
+                android:textColor="#ffff"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"></TextView>
+
+        </LinearLayout>
 
 
 
