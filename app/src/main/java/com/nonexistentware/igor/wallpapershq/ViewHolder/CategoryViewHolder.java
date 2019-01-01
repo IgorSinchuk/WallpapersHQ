@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.nonexistentware.igor.wallpapershq.Interface.ItemClickListener;
 import com.nonexistentware.igor.wallpapershq.R;
 
-import org.w3c.dom.Text;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

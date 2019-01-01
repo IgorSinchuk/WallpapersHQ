@@ -1,28 +1,26 @@
-package com.nonexistentware.igor.wallpapershq;
+package com.nonexistentware.igor.wallpapershq.Fragment;
 
-import android.app.ProgressDialog;
+
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
-
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,16 +30,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.nonexistentware.igor.wallpapershq.MainActivity;
+import com.nonexistentware.igor.wallpapershq.R;
 
 
-public class GoogleActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
-    SignInButton googleBtn;
-    TextView logoutBtn, statusTxt, userName, userEmail;
-    ImageView googleUserPhoto;
-    ProgressDialog dialog;
+    ImageView userPhoto;
+    TextView userName, userEmail, logout, googleBtn;
 
-    GoogleSignInClient googleSignInClient;
     GoogleApiClient googleApiClient;
 
     FirebaseAuth mAuth;
@@ -50,27 +47,41 @@ public class GoogleActivity extends AppCompatActivity implements GoogleApiClient
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 777;
 
+    private static GoogleFragment INSTANCE = null;
+    public GoogleFragment() {
+
+    }
+
+    public static GoogleFragment getInstance() {
+        if (INSTANCE == null)
+            INSTANCE = new GoogleFragment();
+        return INSTANCE;
+    }
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_google);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_google, container, false);
 
-        googleBtn = (SignInButton) findViewById(R.id.googleBtn);
-        logoutBtn = (TextView) findViewById(R.id.logout);
-        statusTxt = (TextView) findViewById(R.id.statusTxt);
-        userName = (TextView) findViewById(R.id.userName);
-        userEmail = (TextView) findViewById(R.id.userEmail);
-        googleUserPhoto = (ImageView) findViewById(R.id.googleUserPhoto);
 
-        statusTxt.setVisibility(View.INVISIBLE);
+        userPhoto = (ImageView) view.findViewById(R.id.userPhoto);
+        userName = (TextView) view.findViewById(R.id.userName);
+        userEmail = (TextView) view.findViewById(R.id.userEmail);
+        logout = (TextView) view.findViewById(R.id.logout);
+        googleBtn = (TextView) view.findViewById(R.id.googleBtn);
+
+
+        userEmail.setVisibility(View.INVISIBLE);
+        userName.setVisibility(View.INVISIBLE);
+        logout.setVisibility(View.INVISIBLE);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
+        googleApiClient = new GoogleApiClient.Builder(getContext())
+                .enableAutoManage(getActivity(), this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -79,9 +90,7 @@ public class GoogleActivity extends AppCompatActivity implements GoogleApiClient
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user == null) {
 
-                }
             }
         };
 
@@ -90,37 +99,35 @@ public class GoogleActivity extends AppCompatActivity implements GoogleApiClient
             public void onClick(View v) {
                 Intent signin = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                 startActivityForResult(signin, RC_SIGN_IN);
-
             }
         });
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
                         new ResultCallback<Status>() {
                             @Override
                             public void onResult(@NonNull Status status) {
-                                Toast.makeText(GoogleActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
-                                Intent intent = getIntent();
-                                finish();
-                                startActivity(intent);
-
+                                Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
                             }
                         }
                 );
             }
         });
 
+        userEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
+
+        return view;
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
@@ -139,57 +146,46 @@ public class GoogleActivity extends AppCompatActivity implements GoogleApiClient
             userEmail.setText(account.getEmail());
             userEmail.setVisibility(View.VISIBLE);
             userName.setVisibility(View.VISIBLE);
-            logoutBtn.setVisibility(View.VISIBLE);
+            logout.setVisibility(View.VISIBLE);
 
-            Glide.with(getApplicationContext()).load(account.getPhotoUrl()).into(googleUserPhoto);
+            Glide.with(getContext()).load(account.getPhotoUrl()).into(userPhoto);
         }
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount signInAccount) {
         AuthCredential credential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
-    private void setUserData(FirebaseUser user) {
-        userName.setText(user.getDisplayName());
-        userEmail.setText(user.getEmail());
-
-        userEmail.setVisibility(View.VISIBLE);
-        userName.setVisibility(View.VISIBLE);
-
-        Glide.with(getApplicationContext()).load(user.getPhotoUrl()).into(googleUserPhoto);
-    }
-
-    private void updateUI() {
-
-    }
     @Override
     public void onClick(View v) {
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
+
     }
 
     @Override
-    protected void onStart() {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(firebaseAuthListener);
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
-
         if (firebaseAuthListener != null) {
-            mAuth.removeAuthStateListener(firebaseAuthListener);
-        }
+        mAuth.removeAuthStateListener(firebaseAuthListener);
+    }
     }
 }

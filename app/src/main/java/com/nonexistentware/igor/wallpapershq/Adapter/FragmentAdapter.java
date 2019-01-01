@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.nonexistentware.igor.wallpapershq.Fragment.CategoryFragment;
 import com.nonexistentware.igor.wallpapershq.Fragment.DailyPopularFragment;
+import com.nonexistentware.igor.wallpapershq.Fragment.GoogleFragment;
 import com.nonexistentware.igor.wallpapershq.Fragment.RecentFragment;
 
 public class FragmentAdapter extends FragmentPagerAdapter {
@@ -17,6 +18,8 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public FragmentAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
+
+
     }
 
     @Override
@@ -27,13 +30,14 @@ public class FragmentAdapter extends FragmentPagerAdapter {
             return DailyPopularFragment.getInstance();
         else if (position == 2)
             return RecentFragment.getInstance(context);
-        else
+        else if (position == 3)
+            return GoogleFragment.getInstance();
             return null;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Nullable
@@ -42,15 +46,13 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 return "Category";
-
-
             case 1:
                 return "Popular";
-
             case 2:
                 return "Recent";
+            case 3:
+                return "Google";
         }
-
-        return "";
+        return null;
     }
 }

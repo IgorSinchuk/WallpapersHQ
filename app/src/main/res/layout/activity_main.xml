@@ -38,31 +38,31 @@
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"></android.support.design.widget.BottomNavigationView>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="#000"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:background="#000"-->
+            <!--android:orientation="vertical">-->
 
-            <View
-                android:layout_width="200dp"
-                android:layout_height="3dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:background="#fff" />
+            <!--<View-->
+                <!--android:layout_width="200dp"-->
+                <!--android:layout_height="3dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:background="#fff" />-->
 
-            <TextView
-                android:id="@+id/googleBtn"
-                android:text="Google"
-                android:textSize="20sp"
-                android:textColor="#ffff"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"></TextView>
+            <!--<TextView-->
+                <!--android:id="@+id/googleBtn"-->
+                <!--android:text="Google"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textColor="#ffff"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="5dp"></TextView>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
 
 
