@@ -61,14 +61,12 @@
         android:textColor="#fff"
         android:textSize="24sp"
         android:gravity="center"
-        android:id="@+id/googleBtn"
+        android:id="@+id/signInBtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-</TextView>
+        android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/googleSignInBtn"
+        android:id="@+id/logout"
         android:text="LogoutBtn"
         android:gravity="center"
         android:textSize="24sp"

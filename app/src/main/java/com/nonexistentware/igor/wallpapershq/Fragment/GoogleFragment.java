@@ -37,7 +37,7 @@ import com.nonexistentware.igor.wallpapershq.R;
 public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     ImageView userPhoto;
-    TextView userName, userEmail, logout, googleBtn;
+    TextView userName, userEmail, logout, signInBtn;
 
     GoogleApiClient googleApiClient;
 
@@ -63,12 +63,11 @@ public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnec
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_google, container, false);
 
-
         userPhoto = (ImageView) view.findViewById(R.id.userPhoto);
         userName = (TextView) view.findViewById(R.id.userName);
         userEmail = (TextView) view.findViewById(R.id.userEmail);
         logout = (TextView) view.findViewById(R.id.logout);
-        googleBtn = (TextView) view.findViewById(R.id.googleBtn);
+        signInBtn = (TextView) view.findViewById(R.id.signInBtn);
 
 
         userEmail.setVisibility(View.INVISIBLE);
@@ -85,6 +84,7 @@ public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnec
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -94,7 +94,9 @@ public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnec
             }
         };
 
-        googleBtn.setOnClickListener(new View.OnClickListener() {
+
+
+        signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent signin = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
@@ -116,14 +118,8 @@ public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnec
             }
         });
 
-        userEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
-            }
-        });
-
         return view;
+
     }
 
     @Override
@@ -148,7 +144,7 @@ public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnec
             userName.setVisibility(View.VISIBLE);
             logout.setVisibility(View.VISIBLE);
 
-            Glide.with(getContext()).load(account.getPhotoUrl()).into(userPhoto);
+//            Glide.with(getActivity()).load(account.getPhotoUrl()).into(userPhoto);
         }
     }
 
