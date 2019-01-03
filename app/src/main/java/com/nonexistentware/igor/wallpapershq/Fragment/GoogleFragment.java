@@ -2,10 +2,12 @@ package com.nonexistentware.igor.wallpapershq.Fragment;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -40,6 +45,7 @@ public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnec
     TextView userName, userEmail, logout, signInBtn;
 
     GoogleApiClient googleApiClient;
+    GoogleSignInClient signInClient;
 
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener firebaseAuthListener;
@@ -72,7 +78,7 @@ public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnec
 
         userEmail.setVisibility(View.INVISIBLE);
         userName.setVisibility(View.INVISIBLE);
-        logout.setVisibility(View.INVISIBLE);
+//        logout.setVisibility(View.INVISIBLE);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -83,6 +89,7 @@ public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnec
                 .enableAutoManage(getActivity(), this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        googleApiClient.connect();
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -107,27 +114,69 @@ public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnec
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
-                        new ResultCallback<Status>() {
-                            @Override
-                            public void onResult(@NonNull Status status) {
-                                Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                );
-            }
+                signOut();
+//                Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
+
+//                if (googleApiClient.isConnected()) {
+//                    Auth.GoogleSignInApi.signOut(googleApiClient);
+//                    googleApiClient.disconnect();
+//                    googleApiClient.connect();
+//                    Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
+//                }
+//                    Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
+//                            new ResultCallback<Status>() {
+//                                @Override
+//                                public void onResult(@NonNull Status status) {
+//                                    Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
+//                                    logout.setVisibility(View.INVISIBLE);
+//                                }
+//                            }
+//
+//                    );
+                }
         });
 
         return view;
 
     }
 
+    private void signOut() {
+                    Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
+                                    new ResultCallback<Status>() {
+                                        @Override
+                                        public void onResult(@NonNull Status status) {
+                                            Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                            );
+
+                        }
+                    });
+                }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+//        if (requestCode == RC_SIGN_IN) {
+//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+//            try {
+//                GoogleSignInAccount account = task.getResult(ApiException.class);
+//                firebaseAuthWithGoogle(account);
+//                handleSignInResult(account);
+//            } catch (ApiException e) {
+//                Log.w(TAG, "Google sign in failed", e);
+//            }
+//        }
+
+
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+
+
             handleSignInResult(result);
         }
     }
@@ -144,7 +193,9 @@ public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnec
             userName.setVisibility(View.VISIBLE);
             logout.setVisibility(View.VISIBLE);
 
-//            Glide.with(getActivity()).load(account.getPhotoUrl()).into(userPhoto);
+
+
+//            Glide.with(this).load(account.getPhotoUrl()).into(userPhoto);
         }
     }
 
@@ -173,13 +224,28 @@ public class GoogleFragment extends Fragment implements GoogleApiClient.OnConnec
 
     @Override
     public void onStart() {
-        super.onStart();
+        googleApiClient.connect();
         mAuth.addAuthStateListener(firebaseAuthListener);
+        googleApiClient.connect();
+        super.onStart();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        googleApiClient.stopAutoManage(getActivity());
+//        googleApiClient.disconnect();
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        if (googleApiClient.isConnected()) {
+            Auth.GoogleSignInApi.signOut(googleApiClient);
+            googleApiClient.disconnect();
+            googleApiClient.connect();
+        }
         if (firebaseAuthListener != null) {
         mAuth.removeAuthStateListener(firebaseAuthListener);
     }
