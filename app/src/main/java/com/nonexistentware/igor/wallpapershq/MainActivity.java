@@ -136,53 +136,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        tabLayout.getTabAt(0).setIcon(R.drawable.google);
 
         //call alert dialog
-        googleBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                View view = getLayoutInflater().inflate(R.layout.dialog_google_account, null);
-
-                login = (TextView) view.findViewById(R.id.login);
-                logout = (TextView) view.findViewById(R.id.logout);
-                userEmail = (TextView) view.findViewById(R.id.userEmail);
-                userName = (TextView) view.findViewById(R.id.userName);
-                userPhoto = (ImageView) view.findViewById(R.id.userPhoto);
-
-                userName.setVisibility(View.INVISIBLE);
-                userEmail.setVisibility(View.INVISIBLE);
-
-                login.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent login = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-                        startActivityForResult(login, RC_SIGN_IN);
-                    }
-                });
-
-                logout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
-                                new ResultCallback<Status>() {
-                                    @Override
-                                    public void onResult(@NonNull Status status) {
-                                        Toast.makeText(MainActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
-                                        userName.setVisibility(View.INVISIBLE);
-                                        userEmail.setVisibility(View.INVISIBLE);
-
-                                        userPhoto.setImageResource(R.drawable.google);
-                                    }
-                                }
-                        );
-                    }
-                });
-
-                builder.setView(view);
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-
-        });
+//        googleBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                View view = getLayoutInflater().inflate(R.layout.dialog_google_account, null);
+//
+//                login = (TextView) view.findViewById(R.id.login);
+//                logout = (TextView) view.findViewById(R.id.logout);
+//                userEmail = (TextView) view.findViewById(R.id.userEmail);
+//                userName = (TextView) view.findViewById(R.id.userName);
+//                userPhoto = (ImageView) view.findViewById(R.id.userPhoto);
+//
+//                userName.setVisibility(View.INVISIBLE);
+//                userEmail.setVisibility(View.INVISIBLE);
+//
+////                login.setOnClickListener(new View.OnClickListener() {
+////                    @Override
+////                    public void onClick(View v) {
+////                        Intent login = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+////                        startActivityForResult(login, RC_SIGN_IN);
+////                    }
+////                });
+//
+//                logout.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
+//                                new ResultCallback<Status>() {
+//                                    @Override
+//                                    public void onResult(@NonNull Status status) {
+//                                        Toast.makeText(MainActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
+//                                        userName.setVisibility(View.INVISIBLE);
+//                                        userEmail.setVisibility(View.INVISIBLE);
+//
+//                                        userPhoto.setImageResource(R.drawable.google);
+//                                    }
+//                                }
+//                        );
+//                    }
+//                });
+//
+//                builder.setView(view);
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
+//            }
+//
+//        });
 
         //sign in button
 

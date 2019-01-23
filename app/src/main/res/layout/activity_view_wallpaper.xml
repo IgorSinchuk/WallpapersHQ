@@ -22,7 +22,7 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleTextAppearance="@android:color/transparent"
             android:layout_width="match_parent"
-            android:layout_height="600dp">
+            android:layout_height="650dp">
 
             <ImageView
                 android:background="#000"
@@ -30,8 +30,8 @@
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
