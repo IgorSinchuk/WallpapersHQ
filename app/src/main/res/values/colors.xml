@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="topBar">#252525</color>
+    <color name="Warning_title"></color>
 
     <!--<color name="colorPrimary">#00574B</color>-->  old
 </resources>

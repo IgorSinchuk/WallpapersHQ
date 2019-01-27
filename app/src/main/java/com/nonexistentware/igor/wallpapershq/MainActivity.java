@@ -221,7 +221,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String message = "You need to turn on wifi or mobile data.";
 
         //chane color of alert text
-        ForegroundColorSpan titleColor = new ForegroundColorSpan(Color.RED);
+//        ForegroundColorSpan titleColor = new ForegroundColorSpan(Color.WHITE); //change color of warning title
+        ForegroundColorSpan titleColor = new ForegroundColorSpan(context.getResources().getColor(android.R.color.white));
         ForegroundColorSpan messageColor = new ForegroundColorSpan(Color.WHITE);
 
         SpannableStringBuilder msBuilder = new SpannableStringBuilder(message);

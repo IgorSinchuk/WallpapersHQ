@@ -84,7 +84,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/icon2.png" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Pictures/icon_bw_v3.png" />
                                       <entry key="foregroundLayerName" value="ic_launcher_foreground" />
                                       <entry key="outputName" value="ic_launcherv2" />
                                     </map>
