@@ -1,11 +1,16 @@
 package com.nonexistentware.igor.wallpapershq.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +40,11 @@ public class CategoryFragment extends Fragment {
 
     RecyclerView recyclerView;
 
+    //save state
+    private Parcelable mLayoutManagerSavedState;
+    private static final String SAVED_SUPER_STATE = "super-state";
+    private static final String SAVED_LAYOUT_MANAGER = "layout-manager-state";
+    LinearLayoutManager mLayoutManager;
 
     private static CategoryFragment INSTANCE = null;
 
@@ -138,6 +148,12 @@ public class CategoryFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         if (adapter != null)
@@ -149,7 +165,6 @@ public class CategoryFragment extends Fragment {
         if (adapter != null)
             adapter.stopListening();
         super.onStop();
-
     }
 
     @Override

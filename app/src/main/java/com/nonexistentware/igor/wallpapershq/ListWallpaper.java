@@ -34,6 +34,9 @@ public class ListWallpaper extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
+    //save list state
+    int counter = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +59,7 @@ public class ListWallpaper extends AppCompatActivity {
 
     private void loadBackgroundList() {
         query = FirebaseDatabase.getInstance().getReference(Common.STR_WALLPAPER)
-        .orderByChild("categoryId").equalTo(Common.CATEGORY_ID_SELECTED);
+                .orderByChild("categoryId").equalTo(Common.CATEGORY_ID_SELECTED);
         options = new FirebaseRecyclerOptions.Builder<WallpaperItem>()
                 .setQuery(query, WallpaperItem.class)
                 .build();
@@ -108,7 +111,7 @@ public class ListWallpaper extends AppCompatActivity {
             public ListWallpaperViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View itemView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.layout_wallpaper_item, parent, false);
-                int height = parent.getMeasuredHeight()/2;
+                int height = parent.getMeasuredHeight() / 2;
                 itemView.setMinimumHeight(height);
                 return new ListWallpaperViewHolder(itemView);
             }
@@ -129,8 +132,21 @@ public class ListWallpaper extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (adapter != null)
-            adapter.startListening();
+        counter++;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("counter", counter);
+        Log.d("VIVZ", counter + " was saved");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        counter = savedInstanceState.getInt("counter");
+        Log.d("VIVZ", counter + " was restored");
     }
 
     @Override

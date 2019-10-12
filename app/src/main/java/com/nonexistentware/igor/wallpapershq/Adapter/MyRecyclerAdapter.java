@@ -88,12 +88,9 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<ListWallpaperViewHol
         });
     }
 
-
-
     @Override
     public int getItemCount() {
         return recents.size();
     }
-
 
 }
