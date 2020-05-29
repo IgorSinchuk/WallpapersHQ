@@ -47,24 +47,6 @@
         </activity>
         <activity android:name=".ListWallpaper" />
         <activity android:name=".ViewWallpaper" />
-        <activity android:name=".GoogleActivity"></activity>
-
-        <service android:name=".MessageService.FirebaseMessagingService"
-            android:stopWithTask="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <service android:name=".MessageService.FirebaseInstanceIDService"
-            android:stopWithTask="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </service>
-
-
 
     </application>
 

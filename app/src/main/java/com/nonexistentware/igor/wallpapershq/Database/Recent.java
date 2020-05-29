@@ -1,9 +1,9 @@
 package com.nonexistentware.igor.wallpapershq.Database;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.support.annotation.NonNull;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
 
 @Entity(tableName = "recent", primaryKeys = {"imageLink", "categoryId"})
 public class Recent {

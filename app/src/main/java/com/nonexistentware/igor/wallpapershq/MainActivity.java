@@ -1,7 +1,6 @@
 package com.nonexistentware.igor.wallpapershq;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,15 +10,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -31,6 +21,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -39,10 +36,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,7 +47,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.nonexistentware.igor.wallpapershq.Adapter.FragmentAdapter;
 import com.nonexistentware.igor.wallpapershq.Common.Common;
-import com.nonexistentware.igor.wallpapershq.Fragment.RecentFragment;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -110,8 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
 
-        googleBtn = (TextView) findViewById(R.id.googleBtn);
-
         //google sign in method
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -130,63 +124,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FirebaseUser user = firebaseAuth.getCurrentUser();
             }
         };
-
-
-        //set category image
-//        tabLayout.getTabAt(0).setIcon(R.drawable.google);
-
-        //call alert dialog
-//        googleBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                View view = getLayoutInflater().inflate(R.layout.dialog_google_account, null);
-//
-//                login = (TextView) view.findViewById(R.id.login);
-//                logout = (TextView) view.findViewById(R.id.logout);
-//                userEmail = (TextView) view.findViewById(R.id.userEmail);
-//                userName = (TextView) view.findViewById(R.id.userName);
-//                userPhoto = (ImageView) view.findViewById(R.id.userPhoto);
-//
-//                userName.setVisibility(View.INVISIBLE);
-//                userEmail.setVisibility(View.INVISIBLE);
-//
-////                login.setOnClickListener(new View.OnClickListener() {
-////                    @Override
-////                    public void onClick(View v) {
-////                        Intent login = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-////                        startActivityForResult(login, RC_SIGN_IN);
-////                    }
-////                });
-//
-//                logout.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
-//                                new ResultCallback<Status>() {
-//                                    @Override
-//                                    public void onResult(@NonNull Status status) {
-//                                        Toast.makeText(MainActivity.this, "Logged out", Toast.LENGTH_SHORT).show();
-//                                        userName.setVisibility(View.INVISIBLE);
-//                                        userEmail.setVisibility(View.INVISIBLE);
-//
-//                                        userPhoto.setImageResource(R.drawable.google);
-//                                    }
-//                                }
-//                        );
-//                    }
-//                });
-//
-//                builder.setView(view);
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-//            }
-//
-//        });
-
-        //sign in button
-
-
 
     }
 
@@ -302,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
 
-        }
+    }
 
 
     @Override
@@ -334,7 +271,3 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 }
-
-//if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//            != PackageManager.PERMISSION_GRANTED) {
-//    } requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, Common.PERMISSION_REQUEST_CODE);

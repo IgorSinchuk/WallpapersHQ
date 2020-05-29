@@ -1,14 +1,15 @@
 package com.nonexistentware.igor.wallpapershq.Adapter;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.nonexistentware.igor.wallpapershq.Fragment.CategoryFragment;
 import com.nonexistentware.igor.wallpapershq.Fragment.DailyPopularFragment;
-import com.nonexistentware.igor.wallpapershq.Fragment.GoogleFragment;
 import com.nonexistentware.igor.wallpapershq.Fragment.RecentFragment;
 
 public class FragmentAdapter extends FragmentPagerAdapter {
@@ -30,8 +31,6 @@ public class FragmentAdapter extends FragmentPagerAdapter {
             return DailyPopularFragment.getInstance();
         else if (position == 2)
             return RecentFragment.getInstance(context);
-        else if (position == 3)
-            return GoogleFragment.getInstance();
             return null;
     }
 
